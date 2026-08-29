@@ -1,0 +1,35 @@
+corpus: 1,115,394 chars, vocab 65
+model: 624,000 parameters
+step     1 | train 4.4922 | val 4.4910 | lr 1.00e-05 | 299 tok/s | 8s
+step   100 | train 2.5845 | val 2.5768 | lr 1.00e-03 | 1,494 tok/s | 154s
+step   200 | train 2.4485 | val 2.4562 | lr 9.89e-04 | 1,528 tok/s | 302s
+step   300 | train 2.2773 | val 2.3041 | lr 9.55e-04 | 1,523 tok/s | 454s
+step   400 | train 2.0953 | val 2.1376 | lr 9.02e-04 | 1,545 tok/s | 596s
+step   500 | train 2.0025 | val 2.0719 | lr 8.31e-04 | 1,578 tok/s | 730s
+step   600 | train 1.9348 | val 2.0183 | lr 7.45e-04 | 1,588 tok/s | 871s
+step   700 | train 1.8403 | val 1.9645 | lr 6.50e-04 | 1,602 tok/s | 1,007s
+step   800 | train 1.8328 | val 1.9186 | lr 5.50e-04 | 1,606 tok/s | 1,148s
+step   900 | train 1.7517 | val 1.8794 | lr 4.50e-04 | 1,613 tok/s | 1,286s
+step  1000 | train 1.7375 | val 1.8772 | lr 3.55e-04 | 1,622 tok/s | 1,420s
+step  1100 | train 1.7106 | val 1.8332 | lr 2.69e-04 | 1,630 tok/s | 1,555s
+step  1200 | train 1.6813 | val 1.8167 | lr 1.98e-04 | 1,628 tok/s | 1,698s
+step  1300 | train 1.6686 | val 1.7997 | lr 1.45e-04 | 1,627 tok/s | 1,841s
+step  1400 | train 1.6681 | val 1.8198 | lr 1.11e-04 | 1,624 tok/s | 1,986s
+step  1500 | train 1.6317 | val 1.8336 | lr 1.00e-04 | 1,625 tok/s | 2,126s
+
+--- sample ---
+ROMEO:
+The had you would and and to say feir this some
+deperitter the bother the writh the whe his gues in the me
+in a deture this soplace dandiegeent, by the go.
+
+HENRY GORK:
+O, you lie hold a me, bow that wha
+Bearth such the brother, ence and craking,
+And not's being lion make of them were the him.
+You see a do taide,
+What you, truck more and uponto him some eyee,
+Nay couse heast.
+
+Seconds Claughter:
+

@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+data/*.gz
+data/input.txt
+assets/*.png
+.DS_Store

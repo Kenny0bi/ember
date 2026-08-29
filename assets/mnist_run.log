@@ -1,0 +1,6 @@
+epoch 1: train loss 0.3457, test acc 95.0900%, 4s elapsed
+epoch 2: train loss 0.1346, test acc 96.8000%, 7s elapsed
+epoch 3: train loss 0.0888, test acc 97.2700%, 11s elapsed
+epoch 4: train loss 0.0652, test acc 97.3700%, 14s elapsed
+epoch 5: train loss 0.0499, test acc 97.8300%, 19s elapsed
+final test accuracy: 97.8300%

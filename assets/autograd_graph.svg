@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 560" font-family="Menlo, Consolas, monospace">
+<rect width="1160" height="560" fill="#191512" rx="14"/>
+<defs><filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<text x="46" y="52" fill="#e8ded2" font-size="21" font-weight="bold">the tape, caught mid-burn</text>
+<text x="46" y="74" fill="#8a7d6d" font-size="12.5" font-family="Georgia, serif" font-style="italic">every node below is real: one forward and backward pass of a two-layer network, read straight off ember’s autograd graph</text>
+<path d="M838,270 C865,270 865,290 892,290" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M892,290 C865,290 865,270 838,270" stroke="#fefaea" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M784,290 C811,290 811,270 838,270" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M838,270 C811,270 811,290 784,290" stroke="#e6820b" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M730,270 C757,270 757,290 784,290" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M784,290 C757,290 757,270 730,270" stroke="#e6820b" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M676,290 C703,290 703,270 730,270" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M730,270 C703,270 703,290 676,290" stroke="#a02e0d" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M406,270 C541,270 541,290 676,290" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M676,290 C541,290 541,270 406,270" stroke="#b63b0c" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M622,270 C649,270 649,290 676,290" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M676,290 C649,290 649,270 622,270" stroke="#e6820b" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M568,290 C595,290 595,270 622,270" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M622,270 C595,270 595,290 568,290" stroke="#e6820b" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M514,270 C541,270 541,290 568,290" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M568,290 C541,290 541,270 514,270" stroke="#b63a0c" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M460,290 C487,290 487,270 514,270" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M514,270 C487,270 487,290 460,290" stroke="#b63a0c" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M406,270 C433,270 433,290 460,290" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M460,290 C433,290 433,270 406,270" stroke="#b63b0c" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M352,290 C379,290 379,270 406,270" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M406,270 C379,270 379,290 352,290" stroke="#b63b0c" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M98,296 C252,296 252,270 406,270" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M298,270 C325,270 325,290 352,290" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M352,290 C325,290 325,270 298,270" stroke="#b63b0c" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M98,401 C225,401 225,290 352,290" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M352,290 C225,290 225,401 98,401" stroke="#b43a0c" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M244,290 C271,290 271,270 298,270" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M298,270 C271,270 271,290 244,290" stroke="#9c2c0d" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M82,244 C190,244 190,270 298,270" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M298,270 C190,270 190,244 82,244" stroke="#c5480b" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M190,270 C217,270 217,290 244,290" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M244,290 C217,290 217,270 190,270" stroke="#6f1b0d" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M136,290 C163,290 163,270 190,270" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M190,270 C163,270 163,290 136,290" stroke="#6f1b0d" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M82,349 C136,349 136,270 190,270" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M190,270 C136,270 136,349 82,349" stroke="#a8330c" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<path d="M82,139 C109,139 109,290 136,290" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M98,191 C117,191 117,290 136,290" stroke="#332c24" stroke-width="1.6" fill="none"/>
+<path d="M136,290 C117,290 117,191 98,191" stroke="#b93c0c" stroke-width="1.1" fill="none" stroke-dasharray="3 7" opacity="0.85"/>
+<circle cx="892" cy="290" r="7.0" fill="#fefaea" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="892" y="311" fill="#e8ded2" font-size="11" text-anchor="middle">loss</text>
+<circle cx="838" cy="270" r="7.0" fill="#fefaea" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="838" y="291" fill="#e8ded2" font-size="11" text-anchor="middle">×</text>
+<circle cx="784" cy="290" r="7.0" fill="#e6820b" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="784" y="311" fill="#e8ded2" font-size="11" text-anchor="middle">Σ</text>
+<circle cx="730" cy="270" r="9.9" fill="#e6820b" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="730" y="294" fill="#e8ded2" font-size="11" text-anchor="middle">index</text>
+<circle cx="676" cy="290" r="11.4" fill="#a02e0d" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="676" y="315" fill="#e8ded2" font-size="11" text-anchor="middle">+</text>
+<circle cx="622" cy="270" r="9.9" fill="#e6820b" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="622" y="294" fill="#e8ded2" font-size="11" text-anchor="middle">×</text>
+<circle cx="568" cy="290" r="9.9" fill="#e6820b" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="568" y="314" fill="#e8ded2" font-size="11" text-anchor="middle">log</text>
+<circle cx="514" cy="270" r="9.9" fill="#b63a0c" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="514" y="294" fill="#e8ded2" font-size="11" text-anchor="middle">Σ</text>
+<circle cx="460" cy="290" r="11.4" fill="#b63a0c" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="460" y="315" fill="#e8ded2" font-size="11" text-anchor="middle">exp</text>
+<circle cx="406" cy="270" r="11.4" fill="#b63b0c" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="406" y="295" fill="#e8ded2" font-size="11" text-anchor="middle">+</text>
+<circle cx="98" cy="296" r="9.9" fill="#332c24" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="80" y="300" fill="#8a7d6d" font-size="11" text-anchor="end">const</text>
+<circle cx="352" cy="290" r="11.4" fill="#b63b0c" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="352" y="315" fill="#e8ded2" font-size="11" text-anchor="middle">+</text>
+<circle cx="98" cy="401" r="8.5" fill="#b43a0c" filter="url(#glow)" stroke="#e8ded2" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="81" y="405" fill="#e8ded2" font-size="11" text-anchor="end">b2</text>
+<circle cx="298" cy="270" r="11.4" fill="#b63b0c" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="298" y="295" fill="#e8ded2" font-size="11" text-anchor="middle">matmul</text>
+<circle cx="82" cy="244" r="10.8" fill="#c5480b" filter="url(#glow)" stroke="#e8ded2" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="63" y="248" fill="#e8ded2" font-size="11" text-anchor="end">W2</text>
+<circle cx="244" cy="290" r="12.1" fill="#9c2c0d" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="244" y="316" fill="#e8ded2" font-size="11" text-anchor="middle">relu</text>
+<circle cx="190" cy="270" r="12.1" fill="#6f1b0d" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="190" y="296" fill="#e8ded2" font-size="11" text-anchor="middle">+</text>
+<circle cx="82" cy="349" r="9.2" fill="#a8330c" filter="url(#glow)" stroke="#e8ded2" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="65" y="353" fill="#e8ded2" font-size="11" text-anchor="end">b1</text>
+<circle cx="136" cy="290" r="12.1" fill="#6f1b0d" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="136" y="316" fill="#e8ded2" font-size="11" text-anchor="middle">matmul</text>
+<circle cx="98" cy="191" r="11.2" fill="#b93c0c" filter="url(#glow)" stroke="#e8ded2" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="79" y="195" fill="#e8ded2" font-size="11" text-anchor="end">W1</text>
+<circle cx="82" cy="139" r="11.8" fill="#332c24" filter="url(#glow)" stroke="none" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="62" y="143" fill="#e8ded2" font-size="11" text-anchor="end">x</text>
+<text x="942" y="108" fill="#8a7d6d" font-size="11.5" font-family="Georgia, serif" font-style="italic">how to read it</text>
+<circle cx="950" cy="130" r="6" fill="#fef0ba"/>
+<text x="964" y="134" fill="#e8ded2" font-size="10.5">hot: large gradient</text>
+<circle cx="950" cy="152" r="6" fill="#ce580b"/>
+<text x="964" y="156" fill="#e8ded2" font-size="10.5">warm: small</text>
+<circle cx="950" cy="174" r="6" fill="#332c24"/>
+<text x="964" y="178" fill="#e8ded2" font-size="10.5">grey: no gradient</text>
+<circle cx="950" cy="200" r="6" fill="none" stroke="#e8ded2" stroke-width="1.3" stroke-dasharray="2 2"/>
+<text x="964" y="204" fill="#e8ded2" font-size="10.5">dashed ring: parameter</text>
+<text x="942" y="230" fill="#e8ded2" font-size="10.5">size ∝ tensor elements</text>
+<text x="942" y="248" fill="#e8ded2" font-size="10.5">dotted trails: grads</text>
+<text x="942" y="266" fill="#e8ded2" font-size="10.5">flowing right to left</text>
+<text x="46" y="524" fill="#8a7d6d" font-size="11">forward runs left → right · loss = 1.1990 · subtraction and division appear as + and × because ember lowers them to primitive ops · scalar constants omitted</text>
+</svg>

@@ -9,6 +9,19 @@ GPT, end to end, with PyTorch nowhere in the loop.
 
 ![The autograd tape of a real backward pass](assets/autograd_graph.svg)
 
+## The math, animated
+
+Before the code, the idea. This is what `backward()` actually is, animated
+with Manim over the same graph as above: local derivatives, multiplied along
+the tape in reverse, summed where paths meet.
+
+![The chain rule on ember's tape](assets/chain_rule.gif)
+
+(Source: [assets/manim_chain_rule.py](assets/manim_chain_rule.py), full video
+in [assets/chain_rule.mp4](assets/chain_rule.mp4). One deliberate detail: the
+`x` node never ignites, because inputs have `requires_grad=False` and the
+engine really does stop the burn there.)
+
 ## Why I built this
 
 Frameworks make backpropagation invisible, and invisible is exactly how you

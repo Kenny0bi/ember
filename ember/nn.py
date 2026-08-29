@@ -149,6 +149,9 @@ class CausalSelfAttention(Module):
         # negative before softmax zeroes attention to future positions.
         mask = np.triu(np.full((block_size, block_size), -1e9, dtype=np.float32), k=1)
         self.mask = mask
+        # introspection: set store_att=True to keep the last softmax(QK^T)
+        self.store_att = False
+        self.last_att = None
 
     def forward(self, x):
         B, T, C = x.shape
@@ -159,6 +162,8 @@ class CausalSelfAttention(Module):
         att = (q @ k.swapaxes(-1, -2)) * (1.0 / np.sqrt(self.head_dim))
         att = att + Tensor(self.mask[:T, :T])
         att = F.softmax(att, axis=-1)
+        if self.store_att:
+            self.last_att = att.data.copy()
         att = self.drop(att)
         out = att @ v  # (B, H, T, hd)
         out = out.transpose(0, 2, 1, 3).reshape(B, T, C)

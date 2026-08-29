@@ -371,6 +371,189 @@ def render_shakespeare_svg():
     print("shakespeare.svg written")
 
 
+# ----------------------------------------------- trained-model introspection
+
+def _load_trained_gpt():
+    from ember import nn
+
+    text = (ROOT / "data" / "input.txt").read_text()
+    chars = sorted(set(text))
+    stoi = {c: i for i, c in enumerate(chars)}
+    itos = {i: c for i, c in enumerate(chars)}
+    model = nn.GPT(vocab_size=len(chars), block_size=96, dim=128,
+                   num_heads=4, num_layers=3, dropout=0.1, seed=1)
+    state = dict(np.load(ASSETS / "shakespeare_model.npz"))
+    model.load_state_dict(state)
+    model.eval()
+    return model, stoi, itos, text
+
+
+def render_confidence_svg():
+    """The model's own words, colored by how sure it was of each one.
+
+    Data-driven typography: the sample text IS the chart. Each character's
+    color encodes p(that char | everything before it) under the trained model.
+    """
+    from ember.tensor import no_grad
+
+    model, stoi, itos, _ = _load_trained_gpt()
+    sample = (ASSETS / "shakespeare_sample.txt").read_text()
+    ids = [stoi[c] for c in sample]
+    BLOCK = 96
+
+    probs = [None]  # first char had no context
+    with no_grad():
+        logits = model(np.array([ids[:BLOCK]])).data[0]
+        for t in range(1, min(BLOCK, len(ids))):
+            row = logits[t - 1]
+            p = np.exp(row - row.max()); p /= p.sum()
+            probs.append(float(p[ids[t]]))
+        for t in range(BLOCK, len(ids)):
+            window = ids[t - BLOCK:t]
+            row = model(np.array([window])).data[0, -1]
+            p = np.exp(row - row.max()); p /= p.sum()
+            probs.append(float(p[ids[t]]))
+
+    valid = [p for p in probs if p is not None]
+    print(f"confidence: {len(valid)} chars, mean p={np.mean(valid):.3f}, "
+          f"median p={np.median(valid):.3f}")
+
+    # layout: wrap the sample's own lines at 64 columns
+    lines, cur = [], []
+    for ch, p in zip(sample, probs):
+        if ch == "\n" or len(cur) >= 64:
+            lines.append(cur)
+            cur = [] if ch == "\n" else [(ch, p)]
+        else:
+            cur.append((ch, p))
+    if cur:
+        lines.append(cur)
+    lines = lines[:22]
+
+    CW, LH, X0, Y0 = 15.6, 24, 50, 128
+    W = 1160
+    H = Y0 + LH * len(lines) + 90
+    s = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
+         f'font-family="Menlo, Consolas, monospace">']
+    s.append(f'<rect width="{W}" height="{H}" fill="{BG}" rx="14"/>')
+    s.append(f'<text x="46" y="52" fill="{INK}" font-size="21" font-weight="bold">'
+             'the model grading its own homework</text>')
+    s.append(f'<text x="46" y="74" fill="{FAINT}" font-size="12.5" '
+             f'font-family="Georgia, serif" font-style="italic">'
+             'every character of the generated sample, lit by the probability the '
+             'trained GPT assigned it the moment it wrote it</text>')
+
+    def conf_color(p):
+        if p is None:
+            return FAINT
+        return heat(0.08 + 0.92 * min(1.0, p) ** 0.5)
+
+    for li, line in enumerate(lines):
+        y = Y0 + li * LH
+        for ci, (ch, p) in enumerate(line):
+            if ch == " ":
+                continue
+            esc = ch.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            s.append(f'<text x="{X0 + ci * CW:.1f}" y="{y}" font-size="16" '
+                     f'fill="{conf_color(p)}">{esc}</text>')
+
+    ky = H - 46
+    s.append(f'<text x="{X0}" y="{ky}" fill="{FAINT}" font-size="11.5" '
+             f'font-family="Georgia, serif" font-style="italic">how to read it</text>')
+    for i, (p, lab) in enumerate([(0.95, "certain"), (0.5, "confident"),
+                                  (0.15, "hedging"), (0.02, "guessing")]):
+        x = X0 + 130 + i * 150
+        s.append(f'<rect x="{x}" y="{ky - 12}" width="14" height="14" rx="3" '
+                 f'fill="{conf_color(p)}"/>')
+        s.append(f'<text x="{x + 20}" y="{ky}" fill="{INK}" font-size="11.5">'
+                 f'{lab} (p~{p})</text>')
+    s.append(f'<text x="{W - 46}" y="{ky}" fill="{FAINT}" font-size="11" '
+             f'text-anchor="end">mean p = {np.mean(valid):.2f} · '
+             f'median p = {np.median(valid):.2f}</text>')
+    s.append("</svg>")
+    (ASSETS / "confidence.svg").write_text("\n".join(s))
+    print("confidence.svg written")
+
+
+def render_attention_svg():
+    """The trained model's attention, drawn as arcs over real Shakespeare."""
+    from ember.tensor import no_grad
+
+    model, stoi, itos, text = _load_trained_gpt()
+    # a real line from the held-out tail of the corpus
+    start = int(len(text) * 0.95)
+    snippet = text[start:start + 3000]
+    # find a clean speech start
+    k = snippet.find("\n\n") + 2
+    line = snippet[k:k + 72].replace("\n", " ")
+    ids = [stoi[c] for c in line]
+
+    for block in model.blocks:
+        block.attn.store_att = True
+    with no_grad():
+        model(np.array([ids]))
+    atts = [block.attn.last_att[0] for block in model.blocks]  # (H, T, T) x layers
+
+    T = len(ids)
+    layer = 2  # last block: most abstract heads
+    att = atts[layer]
+    H_COLORS = ["#f59e0b", "#ef4444", "#fde68a", "#7f8cff"]
+
+    CW, X0 = 15.6, 50
+    W = max(1160, X0 * 2 + int(T * CW))
+    BASE = 360
+    Hgt = 470
+    s = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {Hgt}" '
+         f'font-family="Menlo, Consolas, monospace">']
+    s.append(f'<rect width="{W}" height="{Hgt}" fill="{BG}" rx="14"/>')
+    s.append(f'<text x="46" y="52" fill="{INK}" font-size="21" font-weight="bold">'
+             'where the heads look</text>')
+    s.append(f'<text x="46" y="74" fill="{FAINT}" font-size="12.5" '
+             f'font-family="Georgia, serif" font-style="italic">'
+             f'the four attention heads of layer {layer + 1}, reading one line of '
+             'held-out Shakespeare: every arc is a real weight from softmax(QK&#7488;/&#8730;d)</text>')
+
+    # arcs: for each query, its strongest non-trivial key per head
+    drawn = 0
+    for h in range(4):
+        for q in range(2, T):
+            keys = att[h, q, :q]  # strictly before q
+            kbest = int(np.argmax(keys))
+            w = float(keys[kbest])
+            if w < 0.12 or q - kbest < 2:
+                continue
+            x1, x2 = X0 + kbest * CW + CW / 2, X0 + q * CW + CW / 2
+            rise = min(200, 18 + (q - kbest) * 6)
+            s.append(f'<path d="M{x1:.0f},{BASE - 24} C{x1:.0f},{BASE - 24 - rise} '
+                     f'{x2:.0f},{BASE - 24 - rise} {x2:.0f},{BASE - 24}" '
+                     f'fill="none" stroke="{H_COLORS[h]}" '
+                     f'stroke-width="{0.8 + 3.2 * w:.2f}" opacity="{0.25 + 0.6 * w:.2f}"/>')
+            drawn += 1
+
+    for i, ch in enumerate(line):
+        esc = ch.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        s.append(f'<text x="{X0 + i * CW + CW / 2:.1f}" y="{BASE}" font-size="15" '
+                 f'fill="{INK}" text-anchor="middle">{esc}</text>')
+
+    ky = BASE + 52
+    s.append(f'<text x="{X0}" y="{ky}" fill="{FAINT}" font-size="11.5" '
+             f'font-family="Georgia, serif" font-style="italic">'
+             'arc thickness and glow = attention weight · each arc lands on the '
+             'character being attended to</text>')
+    for h in range(4):
+        x = X0 + h * 130
+        s.append(f'<line x1="{x}" y1="{ky + 22}" x2="{x + 26}" y2="{ky + 22}" '
+                 f'stroke="{H_COLORS[h]}" stroke-width="3"/>')
+        s.append(f'<text x="{x + 34}" y="{ky + 26}" fill="{INK}" font-size="11.5">'
+                 f'head {h + 1}</text>')
+    s.append(f'<text x="{W - 46}" y="{ky + 26}" fill="{FAINT}" font-size="11" '
+             f'text-anchor="end">{drawn} arcs shown (strongest key per query, '
+             'weight &#8805; 0.12)</text>')
+    s.append("</svg>")
+    (ASSETS / "attention.svg").write_text("\n".join(s))
+    print(f"attention.svg written ({drawn} arcs)")
+
+
 if __name__ == "__main__":
     which = sys.argv[1] if len(sys.argv) > 1 else "all"
     if which in ("all", "graph"):
@@ -379,3 +562,7 @@ if __name__ == "__main__":
         render_parity_svg()
     if which in ("all", "shakespeare"):
         render_shakespeare_svg()
+    if which in ("all", "confidence"):
+        render_confidence_svg()
+    if which in ("all", "attention"):
+        render_attention_svg()

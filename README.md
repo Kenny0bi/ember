@@ -75,6 +75,31 @@ linear warmup into cosine decay, global-norm clipping at 1.0, dropout,
 pre-norm blocks. A sample from the trained model is in
 [assets/shakespeare_sample.txt](assets/shakespeare_sample.txt).
 
+## Watching the trained model think
+
+Because the engine is mine all the way down, introspection is free, so I put
+the trained GPT back under the microscope. First: the sample it generated,
+where each character is lit by the probability the model assigned it at the
+moment of writing. The text is the chart.
+
+![Generation confidence, character by character](assets/confidence.svg)
+
+You can watch it commit: the first letter of a name is a dim guess, the rest
+of the name burns bright (once you have "R", "OMEO:" is nearly free). Function
+words glow; the made-up words it half-remembers fade back to ash. Mean
+probability over the sample is 0.40, median 0.30, measured, not vibes.
+
+Second: the four attention heads of the last layer reading a line of held-out
+Shakespeare, every arc a real weight out of softmax(QK^T / sqrt(d)):
+
+![Attention arcs over a line of Shakespeare](assets/attention.svg)
+
+The pale head keeps reaching back to the speaker tag at the start of the line,
+behaving like an anchor head; the others work short-range structure. This is a
+624K-parameter model trained for 35 minutes on a laptop, and it already grew a
+division of labor. (The capture hook is two lines in
+[ember/nn.py](ember/nn.py): set `store_att = True` on any attention module.)
+
 ## The three bugs that taught me the most
 
 **Broadcasting is the real boss fight.** When `(4, 5) + (5,)` runs forward,
